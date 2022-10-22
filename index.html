@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src="./logic.js" defer></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <title>Water Tank</title>
 </head>
 <body>
     <div class="main_section">
-        <h1>Water Tank Problem</h1>
+        <h1>Water Tank Visualizer</h1>
         <div>Enter your array</div>
         <input id="array" type="text" class="input_box" oninput="inputChanged()">
         <small>(enter an array with numbers separated by comma)</small>
+        <svg id="given_graph"></svg>
+        <svg id="graph"></svg>
     </div>
 </body>
 </html>

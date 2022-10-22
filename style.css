@@ -28,3 +28,7 @@ small {
     color: black;
     text-align: center;
 }
+
+svg rect {
+    fill: orange;
+}
