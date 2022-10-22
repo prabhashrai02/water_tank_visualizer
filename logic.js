@@ -1,14 +1,23 @@
-
-stored("n,4,0,0,0,6,0,6,4,0");
-
-function inputChanged() {
-    let array = document.getElementById("array").value;
-    console.log(array);
+function debounce(func, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(args);
+    }, delay);
+  };
 }
 
-function stored(v) {
+// stored("n,4,0,0,0,6,0,6,4,0");
 
-    let arr = v.split(",");
+const inputChanged = debounce(() => {
+    let array = document.getElementById("array").value;
+    stored(array)
+}, 1000)
+
+function stored(input_array) {
+
+    let arr = input_array.split(",");
     const size = arr.length;
 
     for (let i=0; i<size; i++) {
@@ -18,7 +27,7 @@ function stored(v) {
         if (Number.isNaN(arr[i])) console.error("only integers are allowed in array");
     }
 
-    console.log(arr)
+    // console.log(arr)
     
     let prefix = [...arr];
     let suffix = [...arr];
@@ -31,10 +40,10 @@ function stored(v) {
         suffix[i] = Math.max(suffix[i+1], arr[i]);
     }
     
-    console.log(prefix, suffix)
+    console.log(prefix, suffix, size-1)
     let water_stored = [...arr];
 
-    for(let i=1; i<size-1; i++) {
+    for(let i=0; i<size; i++) {
         water_stored[i] = Math.min(prefix[i], suffix[i]) - arr[i];
     }
 
