@@ -8,8 +8,6 @@ function debounce(func, delay) {
   };
 }
 
-// stored("n,4,0,0,0,6,0,6,4,0");
-
 const inputChanged = debounce(() => {
     let array = document.getElementById("array").value;
     stored(array)
@@ -27,8 +25,6 @@ function stored(input_array) {
         if (Number.isNaN(arr[i])) console.error("only integers are allowed in array");
     }
 
-    // console.log(arr)
-    
     let prefix = [...arr];
     let suffix = [...arr];
 
@@ -39,8 +35,6 @@ function stored(input_array) {
     for (let i=size-2; i>=0; i--) {
         suffix[i] = Math.max(suffix[i+1], arr[i]);
     }
-    
-    console.log(prefix, suffix, size-1)
     let water_stored = [...arr];
 
     for(let i=0; i<size; i++) {
