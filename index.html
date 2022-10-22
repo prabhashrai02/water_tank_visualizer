@@ -13,10 +13,12 @@
     <div class="main_section">
         <h1>Water Tank Visualizer</h1>
         <div>Enter your array</div>
-        <input id="array" type="text" class="input_box" oninput="inputChanged()">
+        <input id="array" type="text" class="input_box" oninput="inputChanged()" placeholder="12, 14, 5, 7, 8, 10, 6, 8, 12">
         <small>(enter an array with numbers separated by comma)</small>
-        <svg id="given_graph"></svg>
-        <svg id="graph" class="water"></svg>
+        <div class="water_tank">
+            <svg id="given_graph"></svg>
+            <svg id="graph" class="water"></svg>
+        </div>
     </div>
 </body>
 </html>

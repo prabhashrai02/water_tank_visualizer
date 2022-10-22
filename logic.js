@@ -66,7 +66,7 @@ function drawChart(data, element, water = false, originalArr = []) {
   let graph = element;
   
   const height = window.innerHeight*0.5;
-  const width = window.innerWidth*0.7;
+  const width = window.innerWidth*0.45;
   graph.style.height = height;
   graph.style.width = width;
 
@@ -88,11 +88,11 @@ function drawWaterChart(data, element, arr) {
   let graph = element;
   
   const height = window.innerHeight*0.5;
-  const width = window.innerWidth*0.7;
+  const width = window.innerWidth*0.45;
   graph.style.height = height;
   graph.style.width = width;
 
-  const height_ratio = height / (max_height + 20);
+  const height_ratio = height / (max_height + 5);
 
   let chart = '';
   let x = 0;
