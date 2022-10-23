@@ -11,13 +11,27 @@ function debounce(func, delay) {
 let array;
 const inputChanged = debounce(() => {
     array = document.getElementById("array").value;
-    stored(array)
+    stored(array);
 }, 1000)
+
+function loader(show) {
+  const skeletonLoaders = document.querySelectorAll(".skeleton");
+  for (skeleton of skeletonLoaders) {
+    if (show) skeleton.style.display = "block";
+    else skeleton.style.display = "none";
+  }
+
+  const svgCharts = document.querySelectorAll(".svgChart");
+  for (chart of svgCharts) {
+    if (show) chart.style.display = "none";
+    else chart.style.display = "block";
+  }
+}
 
 let water_stored = [], arr = [], max_height = 0;
 
 function stored(input_array) {
-
+  loader(false);
   arr = input_array.split(",");
     const size = arr.length;
 
