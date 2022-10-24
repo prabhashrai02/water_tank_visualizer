@@ -55,16 +55,17 @@ svg rect {
     background: linear-gradient(
         to right,
         rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.5) 50%,
+        #656871 40%, 
         rgba(255, 255, 255, 0) 80%
-      ),
-      lightgray;
+        ),
+        rgb(64, 64, 64);
     background-repeat: repeat-y;
     background-size: 50px 500px;
     background-position: 0 0;
     animation: shine 1s infinite;
     border-radius: 0.5rem;
     display: none;
+    opacity: 0.5;
 }
 
 @keyframes shine {
