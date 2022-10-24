@@ -29,20 +29,17 @@ function extractArray(input_array) {
 }
 
 function calculateWaterStored(size) {
-  let prefix = [...inputArray];
-  let suffix = [...inputArray];
+  let prevHigh = inputArray[0];
+  let nextHigh = [...inputArray];
 
-  for (let index=1; index<size; index++) {
-      prefix[index] = Math.max(prefix[index-1], inputArray[index]);
-  }
-  
   for (let index=size-2; index>=0; index--) {
-      suffix[index] = Math.max(suffix[index+1], inputArray[index]);
+      nextHigh[index] = Math.max(nextHigh[index+1], inputArray[index]);
   }
   water_stored = [...inputArray];
 
   for(let index=0; index<size; index++) {
-      water_stored[index] = Math.min(prefix[index], suffix[index]) - inputArray[index];
+    water_stored[index] = Math.min(prevHigh, nextHigh[index]) - inputArray[index];
+    prevHigh = Math.max(prevHigh, inputArray[index]);
   }
 
   drawChart(inputArray, document.getElementById('given_graph'));
