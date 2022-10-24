@@ -107,7 +107,10 @@ function drawChart(data, element, water = false, originalArr = []) {
   for (let index=0; index<data.length; index++) {
     chart += '<rect x ="' + x + '" y ="' 
       + (height - (data[index]*height_ratio)) 
-      + '" width = "'+ (width / data.length) +'" height ="' + (data[index]*height_ratio) + '" />';
+      + '" width = "'+ (width / data.length) +'" height ="' + (data[index]*height_ratio)+ '">\n';
+    
+    chart += '<title>' + data[index] + '</title>\n';
+    chart += '</rect>';
     x+= (width / data.length);
   }
   graph.innerHTML = chart;
@@ -130,7 +133,11 @@ function drawWaterChart(data, element, inputArray) {
   for (let index=0; index<data.length; index++) {
     chart += '<rect x ="' + x + '" y ="' 
       + (height - ((data[index] + inputArray[index])*height_ratio)) 
-      + '" width = "'+ (width / data.length) +'" height ="' + (data[index]*height_ratio) + '" />';
+      + '" width = "'+ (width / data.length) +'" height ="' + (data[index]*height_ratio) + '">\n';
+
+      chart += '<title>' + data[index] + '</title>\n';
+      chart += '</rect>';
+      console.log(chart)
     x+= (width / data.length);
   }
   graph.innerHTML = chart;
