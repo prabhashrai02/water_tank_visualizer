@@ -8,10 +8,10 @@ function debounce(func, delay) {
   };
 }
 
-let array;
+let input;
 const inputChanged = debounce(() => {
-    array = document.getElementById("array").value;
-    stored(array);
+    input = document.getElementById("input").value;
+    stored(input);
 }, 1000)
 
 function loader(show) {
@@ -28,47 +28,50 @@ function loader(show) {
   }
 }
 
-let water_stored = [], arr = [], max_height = 0;
+let water_stored = [], inputArray = [], max_height = 0;
 
 function stored(input_array) {
   loader(false);
-  arr = input_array.split(",");
-    const size = arr.length;
+  inputArray = input_array.split(",");
+  const size = inputArray.length;
 
-    for (let i=0; i<size; i++) {
-      arr[i] = arr[i].trim();
-      arr[i] = +arr[i];
+  for (let index=0; index<size; index++) {
+    inputArray[index] = inputArray[index].trim();
+    inputArray[index] = +inputArray[index];
 
-      max_height = Math.max(max_height, arr[i]);
-      if (Number.isNaN(arr[i])) console.error("only integers are allowed in array");
+    max_height = Math.max(max_height, inputArray[index]);
+    if (Number.isNaN(inputArray[index])) {
+      window.alert("only integers are allowed in array");
+      return;
     }
+  }
 
-    let prefix = [...arr];
-    let suffix = [...arr];
+  let prefix = [...inputArray];
+  let suffix = [...inputArray];
 
-    for (let i=1; i<size; i++) {
-        prefix[i] = Math.max(prefix[i-1], arr[i]);
-    }
-    
-    for (let i=size-2; i>=0; i--) {
-        suffix[i] = Math.max(suffix[i+1], arr[i]);
-    }
-    water_stored = [...arr];
+  for (let index=1; index<size; index++) {
+      prefix[index] = Math.max(prefix[index-1], inputArray[index]);
+  }
+  
+  for (let index=size-2; index>=0; index--) {
+      suffix[index] = Math.max(suffix[index+1], inputArray[index]);
+  }
+  water_stored = [...inputArray];
 
-    for(let i=0; i<size; i++) {
-        water_stored[i] = Math.min(prefix[i], suffix[i]) - arr[i];
-    }
+  for(let index=0; index<size; index++) {
+      water_stored[index] = Math.min(prefix[index], suffix[index]) - inputArray[index];
+  }
 
-    drawChart(arr, document.getElementById('given_graph'));
-    drawChart(water_stored, document.getElementById('graph'), true, arr);
+  drawChart(inputArray, document.getElementById('given_graph'));
+  drawChart(water_stored, document.getElementById('graph'), true, inputArray);
 }
 
 window.onresize = displayWindowSize;
 window.onload = displayWindowSize;
 
 function displayWindowSize() {
-  drawChart(arr, document.getElementById('given_graph'));
-  drawChart(water_stored, document.getElementById('graph'), true, arr);
+  drawChart(inputArray, document.getElementById('given_graph'));
+  drawChart(water_stored, document.getElementById('graph'), true, inputArray);
 };
 
 function drawChart(data, element, water = false, originalArr = []) {
@@ -89,16 +92,16 @@ function drawChart(data, element, water = false, originalArr = []) {
   let chart = '';
   let x = 0;
 
-  for (let i=0; i<data.length; i++) {
+  for (let index=0; index<data.length; index++) {
     chart += '<rect x ="' + x + '" y ="' 
-      + (height - (data[i]*height_ratio)) 
-      + '" width = "'+ (width / data.length) +'" height ="' + (data[i]*height_ratio) + '" />';
+      + (height - (data[index]*height_ratio)) 
+      + '" width = "'+ (width / data.length) +'" height ="' + (data[index]*height_ratio) + '" />';
     x+= (width / data.length);
   }
   graph.innerHTML = chart;
 }
 
-function drawWaterChart(data, element, arr) {
+function drawWaterChart(data, element, inputArray) {
   let graph = element;
   
   const height = window.innerHeight*0.6;
@@ -111,10 +114,10 @@ function drawWaterChart(data, element, arr) {
   let chart = '';
   let x = 0;
 
-  for (let i=0; i<data.length; i++) {
+  for (let index=0; index<data.length; index++) {
     chart += '<rect x ="' + x + '" y ="' 
-      + (height - ((data[i] + arr[i])*height_ratio)) 
-      + '" width = "'+ (width / data.length) +'" height ="' + (data[i]*height_ratio) + '" />';
+      + (height - ((data[index] + inputArray[index])*height_ratio)) 
+      + '" width = "'+ (width / data.length) +'" height ="' + (data[index]*height_ratio) + '" />';
     x+= (width / data.length);
   }
   graph.innerHTML = chart;
