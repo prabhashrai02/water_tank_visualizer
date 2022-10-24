@@ -1,12 +1,15 @@
-window.onresize = resizeWindowSize;
-window.onload = resizeWindowSize;
+window.onresize = resizeWindow;
+window.onload = resizeWindow;
 
+// this function is used to get the input enterd by user
 const inputChanged = debounce(() => {
   const input = document.getElementById("input").value;
   extractArray(input);
 }, 1000);
 
 let water_stored = [], inputArray = [], max_height = 0;
+
+// this function is used to extract input array from the input box
 function extractArray(input_array) {
 
   loader(false);
@@ -28,9 +31,10 @@ function extractArray(input_array) {
   calculateWaterStored(size);
 }
 
+// this function is used to calculate water stored in the given structure
 function calculateWaterStored(size) {
   let prevHigh = inputArray[0];
-  let nextHigh = [...inputArray];
+  const nextHigh = [...inputArray];
 
   for (let index=size-2; index>=0; index--) {
       nextHigh[index] = Math.max(nextHigh[index+1], inputArray[index]);
@@ -39,6 +43,7 @@ function calculateWaterStored(size) {
 
   for(let index=0; index<size; index++) {
     water_stored[index] = Math.min(prevHigh, nextHigh[index]) - inputArray[index];
+    if (water_stored[index] < 0) water_stored[index] = 0;
     prevHigh = Math.max(prevHigh, inputArray[index]);
   }
 
@@ -46,6 +51,9 @@ function calculateWaterStored(size) {
   drawChart(water_stored, document.getElementById('graph'), true, inputArray);
 }
 
+/* util functions */
+
+// this is used to take input after some delay after user stops entering data
 function debounce(func, delay) {
   let timer;
   return (...args) => {
@@ -56,6 +64,7 @@ function debounce(func, delay) {
   };
 }
 
+// this is used to show skeleton loader in place of data which is calculated
 function loader(show) {
   const skeletonLoaders = document.querySelectorAll(".skeleton");
   for (skeleton of skeletonLoaders) {
@@ -70,18 +79,20 @@ function loader(show) {
   }
 }
 
-function resizeWindowSize() {
+// this function is used to make the page responsive
+function resizeWindow() {
   drawChart(inputArray, document.getElementById('given_graph'));
   drawChart(water_stored, document.getElementById('graph'), true, inputArray);
 };
 
+// this function is used to draw svg after the data is extracted
 function drawChart(data, element, water = false, originalArr = []) {
   if (water) {
     drawWaterChart(data, element, originalArr);
     return;
   }
 
-  let graph = element;
+  const graph = element;
   
   const height = window.innerHeight*0.6;
   const width = window.innerWidth*0.45;
@@ -102,8 +113,9 @@ function drawChart(data, element, water = false, originalArr = []) {
   graph.innerHTML = chart;
 }
 
+// this function is used to draw svg of water after processing the input is done
 function drawWaterChart(data, element, inputArray) {
-  let graph = element;
+  const graph = element;
   
   const height = window.innerHeight*0.6;
   const width = window.innerWidth*0.45;
