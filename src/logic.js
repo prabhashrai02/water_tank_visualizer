@@ -1,15 +1,16 @@
 window.onresize = displayWindowSize;
 window.onload = displayWindowSize;
 
-let input;
 const inputChanged = debounce(() => {
-  input = document.getElementById("input").value;
-  stored(input);
+  const input = document.getElementById("input").value;
+  extractArray(input);
 }, 1000);
 
 let water_stored = [], inputArray = [], max_height = 0;
-function stored(input_array) {
+function extractArray(input_array) {
+
   loader(false);
+
   inputArray = input_array.split(",");
   const size = inputArray.length;
 
@@ -24,6 +25,10 @@ function stored(input_array) {
     }
   }
 
+  calculateWaterStored(size);
+}
+
+function calculateWaterStored(size) {
   let prefix = [...inputArray];
   let suffix = [...inputArray];
 
