@@ -1,5 +1,5 @@
-window.onresize = displayWindowSize;
-window.onload = displayWindowSize;
+window.onresize = resizeWindowSize;
+window.onload = resizeWindowSize;
 
 const inputChanged = debounce(() => {
   const input = document.getElementById("input").value;
@@ -70,7 +70,7 @@ function loader(show) {
   }
 }
 
-function displayWindowSize() {
+function resizeWindowSize() {
   drawChart(inputArray, document.getElementById('given_graph'));
   drawChart(water_stored, document.getElementById('graph'), true, inputArray);
 };
