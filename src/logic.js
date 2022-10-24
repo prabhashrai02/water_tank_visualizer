@@ -1,35 +1,13 @@
-function debounce(func, delay) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func(args);
-    }, delay);
-  };
-}
+window.onresize = displayWindowSize;
+window.onload = displayWindowSize;
 
 let input;
 const inputChanged = debounce(() => {
-    input = document.getElementById("input").value;
-    stored(input);
-}, 1000)
-
-function loader(show) {
-  const skeletonLoaders = document.querySelectorAll(".skeleton");
-  for (skeleton of skeletonLoaders) {
-    if (show) skeleton.style.display = "block";
-    else skeleton.style.display = "none";
-  }
-
-  const svgCharts = document.querySelectorAll(".svgChart");
-  for (chart of svgCharts) {
-    if (show) chart.style.display = "none";
-    else chart.style.display = "block";
-  }
-}
+  input = document.getElementById("input").value;
+  stored(input);
+}, 1000);
 
 let water_stored = [], inputArray = [], max_height = 0;
-
 function stored(input_array) {
   loader(false);
   inputArray = input_array.split(",");
@@ -66,8 +44,29 @@ function stored(input_array) {
   drawChart(water_stored, document.getElementById('graph'), true, inputArray);
 }
 
-window.onresize = displayWindowSize;
-window.onload = displayWindowSize;
+function debounce(func, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(args);
+    }, delay);
+  };
+}
+
+function loader(show) {
+  const skeletonLoaders = document.querySelectorAll(".skeleton");
+  for (skeleton of skeletonLoaders) {
+    if (show) skeleton.style.display = "block";
+    else skeleton.style.display = "none";
+  }
+
+  const svgCharts = document.querySelectorAll(".svgChart");
+  for (chart of svgCharts) {
+    if (show) chart.style.display = "none";
+    else chart.style.display = "block";
+  }
+}
 
 function displayWindowSize() {
   drawChart(inputArray, document.getElementById('given_graph'));
