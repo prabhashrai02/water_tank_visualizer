@@ -137,7 +137,6 @@ function drawWaterChart(data, element, inputArray) {
 
       chart += '<title>' + data[index] + '</title>\n';
       chart += '</rect>';
-      console.log(chart)
     x+= (width / data.length);
   }
   graph.innerHTML = chart;
